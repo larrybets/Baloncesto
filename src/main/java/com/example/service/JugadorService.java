@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 /**
  * Created by DAM on 20/10/16.
  */
+// Buscar jugadores que hayan efectuado un número de asistencias dentro de un rango especificado como parámetro (El rango se específica mediante un valor mínimo y un valor máximo).
+//    Buscar jugadores que pertenezcan a una posición específica, por ejemplo: base
+//    Buscar jugadores que hayan nacido en una fecha anterior a una fecha especificada como parámetro.
+//  Combinar los apartados B y E: es decir, la consulta ha de devolver los jugadores que hayan conseguido un número total de canastas mayor o igual a un parámetro, y además que he nacido en una fecha anterior a una fecha especificada como parámetro.
 
 @Service
 public class JugadorService {
@@ -32,6 +36,14 @@ public class JugadorService {
         jugadorRepository.save(jugador5);
 
         System.out.println(jugadorRepository.findBynombre("Pepe"));
+
+        System.out.println("jugadores que han conseguido  mayor o igual de canastas ");
+        System.out.println(jugadorRepository.findBycanastasTotalesGreaterThanEqual(130));
+
+        /////
+
+        System.out.println("jugadores con asitencias medias de 10 a 50 ");
+        System.out.println(jugadorRepository.findByasistenciasTotalesBetween(10, 60));
 
     }
 

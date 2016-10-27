@@ -14,8 +14,9 @@ public interface JugadorRepository extends JpaRepository<Jugador, Long> {
     // finBy(nombre variable)nombre
 
     Jugador findBynombre(String nombre);
-
     List<Jugador> findBycanastasTotalesGreaterThanEqual(Integer canastasTotales);
-
     List<Jugador> findByasistenciasTotalesBetween(Integer min, Integer max);
+    List<Jugador> findByposicion(String posicion);
+    List<Jugador> findBynacimientoLessThan(String nacimiento);
+List<Jugador>
 }

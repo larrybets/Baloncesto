@@ -6,6 +6,8 @@ import com.example.respository.JugadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by DAM on 20/10/16.
  */
@@ -53,16 +55,46 @@ public class JugadorService {
         System.out.println("jugadores que hayan nacido antes de 1992 ");
         System.out.println(jugadorRepository.findBynacimientoLessThan("1992"));
 
-        // agrupar los jugadores por la posicion del campo y devolver para cada grupo la siguiente infor:
+        // agrupar los jugadores por la posicion del campo y devolver para cada grupo
+        // la siguiente infor:
         // media de canastas asistencias t rebotes
 
+        showStatistics(jugadorRepository.AvgAndMaxAndMinPricesPerposicion());
+        showStatistics(jugadorRepository.AvgAndMaxAndMinPricesPerposicion());
 
 
 
-        // Lo mismo que el punto anterior pero devolviendo
-        // la media el maximo y el niminimo de canastas asistencias y rebotes
-        System.out.println("");
+
+
     }
 
+    private void showStatistics(List<Object[]> statisticsList) {
+        for (Object[] statistic : statisticsList)
+        {
+            System.out.println("Posicion: " + statistic[0]);
+            System.out.println("AVG asistencias = " + statistic[1] + " puntos");
+            System.out.println("AVG canastas= " + statistic[2] + " puntos");
+            System.out.println("AVG REBOTES = " + statistic[3] + " puntos" + System.lineSeparator());
+        }
+
+
+    }
+
+    private void showStatistics2(List<Object[]> statisticsList) {
+        for (Object[] statistic : statisticsList)
+        {
+            System.out.println("Posicion: " + statistic[0]);
+            System.out.println("AVG asistencias = " + statistic[1] + " puntos");
+            System.out.println("AVG canastas= " + statistic[2] + " puntos");
+            System.out.println("AVG REBOTES = " + statistic[3] + " puntos" + System.lineSeparator());
+        }
+
+
+    }
+
+
+
 }
+
+
 

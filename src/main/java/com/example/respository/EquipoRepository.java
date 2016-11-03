@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by DAM on 21/10/16.
  */
+
 public interface EquipoRepository extends JpaRepository<Equipo, Long> {
 
     List<Equipo> findByLocalidad(String localidad);
@@ -31,8 +32,5 @@ public interface EquipoRepository extends JpaRepository<Equipo, Long> {
             "from Jugador jugador " +
             "Where jugador.equipo.nombre = :nombre ")
     List<Object[]> findByJugadorQueMasCanastasAnota(@Param("nombre") String nombre);
-
-
-
 }
 

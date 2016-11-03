@@ -115,6 +115,7 @@ public class JugadorService {
         System.out.println("********************************");
     }
 
+
     private void showStatistics(List<Object[]> statisticsList) {
         for (Object[] statistic : statisticsList) {
             System.out.println("Posicion: " + statistic[0]);

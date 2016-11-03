@@ -1,9 +1,6 @@
 package com.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by DAM on 20/10/16.
@@ -20,6 +17,16 @@ public class Jugador {
     private int asistenciasTotales;
     private int rebotesTotales;
     private String posicion;
+    @ManyToOne
+    private Equipo equipo;
+
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
 
     public Jugador() {
 

@@ -1,9 +1,13 @@
 package com.example.service;
 
+import com.example.domain.Equipo;
 import com.example.domain.Jugador;
 import com.example.respository.EquipoRepository;
 import com.example.respository.JugadorRepository;
+import org.hibernate.boot.model.source.spi.SingularAttributeSourceToOne;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +28,38 @@ public class JugadorService {
 
     public void testJugador() {
 
-        Jugador jugador1 = new Jugador("larry", "1991", 144, 33, 89, "ala");
+        Equipo hospi = new Equipo("Hospi", "Hospitalet", "27/02/1990");
+        equipoRepository.save(hospi);
+        Jugador larry = new Jugador("larry", "1991", 144, 33, 89, "alero");
+        larry.setEquipo(hospi);
+        jugadorRepository.save(larry);
+        Jugador pepe = new Jugador("Pepe", "1999", 122, 50, 78, "alero");
+        pepe.setEquipo(hospi);
+        jugadorRepository.save(pepe);
+        //////////
+        Equipo cornella = new Equipo("Cornella", "Cornella de Llobregat", "28/09/1993");
+        equipoRepository.save(cornella);
+        Jugador carlos = new Jugador("carlos", "1993", 134, 56, 98, "defensa");
+        carlos.setEquipo(cornella);
+        jugadorRepository.save(carlos);
+        //////////
+        Equipo castellbisbal = new Equipo("CastellBisbal", "Castell Bisbal", "03/09/2000");
+        equipoRepository.save(castellbisbal);
+        Jugador jose = new Jugador("jose", "1993", 156, 87, 90, "pivot");
+        jose.setEquipo(castellbisbal);
+        jugadorRepository.save(jose);
+        //////////
+        Equipo aese = new Equipo("AESE", "Hospitalet", "09/02/2001");
+        equipoRepository.save(aese);
+        Jugador ivan = new Jugador("ivan", "1994", 122, 11, 89, "alero");
+        ivan.setEquipo(aese);
+        jugadorRepository.save(ivan);
+
+        Equipo nandobase = new Equipo("NandoBase", "El Prat", "19/04/2009");
+        equipoRepository.save(nandobase);
+
+
+        Jugador jugador1 = new Jugador("larry", "1991", 144, 33, 89, "alero");
         jugadorRepository.save(jugador1);
         Jugador jugador2 = new Jugador("Pepe", "1999", 122, 50, 78, "pivot");
         jugadorRepository.save(jugador2);
@@ -32,7 +67,7 @@ public class JugadorService {
         jugadorRepository.save(jugador3);
         Jugador jugador4 = new Jugador("jose", "1993", 156, 87, 90, "pivot");
         jugadorRepository.save(jugador4);
-        Jugador jugador5 = new Jugador("ivan", "1994", 122, 11, 89, "ala");
+        Jugador jugador5 = new Jugador("ivan", "1994", 122, 11, 89, "alero");
         jugadorRepository.save(jugador5);
 
         System.out.println(jugadorRepository.findBynombre("Pepe"));
@@ -62,15 +97,27 @@ public class JugadorService {
         showStatistics(jugadorRepository.AvgAndMaxAndMinPricesPerposicion());
         showStatistics(jugadorRepository.AvgAndMaxAndMinPricesPerposicion());
 
+        System.out.println("************* EQUIPASO SOSIO ");
+        // Consulta los equipos existentes en una localidad determinada.
+        System.out.println("Equipos existentes de Hospitalete");
+        System.out.println(equipoRepository.findByLocalidad("Hospitalet"));
 
+        // Devuelve todos los jugadores de un equipo, a partir del nombre completo del equipo.
+        System.out.println("jugadores del Hospi");
+        System.out.println(equipoRepository.findByNombreEquipo("Hospi"));
 
+        // Devuelve todos los jugadores de un equipo, que además jueguen en la misma posición (parámetro adicional de la consulta), por ejemplo, alero.
+        System.out.println("Jugadores que juegan en un equipo, y son alero");
+        System.out.println(equipoRepository.findByNombrEquipoAndPosicion("Hospi","alero"));
+        // Devuelve el jugador que más canastas ha realizado de un equipo determinado como parámetro.
+        System.out.println("");
 
-
+        System.out.println("********************************");
     }
 
+
     private void showStatistics(List<Object[]> statisticsList) {
-        for (Object[] statistic : statisticsList)
-        {
+        for (Object[] statistic : statisticsList) {
             System.out.println("Posicion: " + statistic[0]);
             System.out.println("AVG asistencias = " + statistic[1] + " puntos");
             System.out.println("AVG canastas= " + statistic[2] + " puntos");
@@ -81,8 +128,7 @@ public class JugadorService {
     }
 
     private void showStatistics2(List<Object[]> statisticsList) {
-        for (Object[] statistic : statisticsList)
-        {
+        for (Object[] statistic : statisticsList) {
             System.out.println("Posicion: " + statistic[0]);
             System.out.println("AVG asistencias = " + statistic[1] + " puntos");
             System.out.println("AVG canastas= " + statistic[2] + " puntos");
@@ -91,7 +137,6 @@ public class JugadorService {
 
 
     }
-
 
 
 }

@@ -17,12 +17,15 @@ public class Equipo {
     private long id;
     private String nombre;
     private String localidad;
-    private Date creacion;
+    private String creacion;
 
-    public Equipo(String nombre, String localidad, Date creacion) {
+    public Equipo(String nombre, String localidad, String creacion) {
         this.nombre = nombre;
         this.localidad = localidad;
         this.creacion = creacion;
+    }
+
+    public Equipo() {
     }
 
     public long getId() {
@@ -49,11 +52,11 @@ public class Equipo {
         this.localidad = localidad;
     }
 
-    public Date getCreacion() {
+    public String getCreacion() {
         return creacion;
     }
 
-    public void setCreacion(Date creacion) {
+    public void setCreacion(String creacion) {
         this.creacion = creacion;
     }
 

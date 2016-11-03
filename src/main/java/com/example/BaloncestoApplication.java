@@ -22,7 +22,6 @@ public class BaloncestoApplication {
 	//	JugadorService jugadorService=context.getBean(JugadorService.class);
 
 		//EquipoService personaService =context.getBean(EquipoService.class);
-
 		//JugadorService.testJugador();
 	}
 }

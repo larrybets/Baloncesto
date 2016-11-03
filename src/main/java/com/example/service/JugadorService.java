@@ -108,13 +108,12 @@ public class JugadorService {
 
         // Devuelve todos los jugadores de un equipo, que además jueguen en la misma posición (parámetro adicional de la consulta), por ejemplo, alero.
         System.out.println("Jugadores que juegan en un equipo, y son alero");
-        System.out.println(equipoRepository.findByNombrEquipoAndPosicion("Hospi","alero"));
+        System.out.println(equipoRepository.findByNombrEquipoAndPosicion("Hospi", "alero"));
         // Devuelve el jugador que más canastas ha realizado de un equipo determinado como parámetro.
-        System.out.println("");
-
+        System.out.println("Jugador que mas canastas ha realizado de del hospi");
+        showStatistics3(equipoRepository.findByJugadorQueMasCanastasAnota("Hospi"));
         System.out.println("********************************");
     }
-
 
     private void showStatistics(List<Object[]> statisticsList) {
         for (Object[] statistic : statisticsList) {
@@ -123,7 +122,6 @@ public class JugadorService {
             System.out.println("AVG canastas= " + statistic[2] + " puntos");
             System.out.println("AVG REBOTES = " + statistic[3] + " puntos" + System.lineSeparator());
         }
-
 
     }
 
@@ -134,10 +132,18 @@ public class JugadorService {
             System.out.println("AVG canastas= " + statistic[2] + " puntos");
             System.out.println("AVG REBOTES = " + statistic[3] + " puntos" + System.lineSeparator());
         }
+    }
+
+    private void showStatistics3(List<Object[]> statisticsList) {
+        for (Object[] statistic : statisticsList) {
+            System.out.println("nombre " + statistic[0]);
+            System.out.println("Max canastas = " + statistic[1] + " puntos" + System.lineSeparator());
+
+
+        }
 
 
     }
-
 
 }
 

@@ -6,6 +6,8 @@ import com.example.respository.EquipoRepository;
 import com.example.respository.JugadorRepository;
 import org.hibernate.boot.model.source.spi.SingularAttributeSourceToOne;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -30,16 +32,16 @@ public class JugadorService {
 
         Equipo hospi = new Equipo("Hospi", "Hospitalet", "27/02/1990");
         equipoRepository.save(hospi);
-        Jugador larry = new Jugador("larry", "1991", 144, 33, 89, "alero");
+        Jugador larry = new Jugador("larry", "1991", 156, 33, 89, "alero");
         larry.setEquipo(hospi);
         jugadorRepository.save(larry);
-        Jugador pepe = new Jugador("Pepe", "1999", 122, 50, 78, "alero");
+        Jugador pepe = new Jugador("Pepe", "1999", 156, 50, 78, "alero");
         pepe.setEquipo(hospi);
         jugadorRepository.save(pepe);
         //////////
         Equipo cornella = new Equipo("Cornella", "Cornella de Llobregat", "28/09/1993");
         equipoRepository.save(cornella);
-        Jugador carlos = new Jugador("carlos", "1993", 134, 56, 98, "defensa");
+        Jugador carlos = new Jugador("carlos", "1993", 156, 56, 98, "defensa");
         carlos.setEquipo(cornella);
         jugadorRepository.save(carlos);
         //////////
@@ -58,17 +60,6 @@ public class JugadorService {
         Equipo nandobase = new Equipo("NandoBase", "El Prat", "19/04/2009");
         equipoRepository.save(nandobase);
 
-
-        Jugador jugador1 = new Jugador("larry", "1991", 144, 33, 89, "alero");
-        jugadorRepository.save(jugador1);
-        Jugador jugador2 = new Jugador("Pepe", "1999", 122, 50, 78, "pivot");
-        jugadorRepository.save(jugador2);
-        Jugador jugador3 = new Jugador("carlos", "1993", 134, 56, 98, "defensa");
-        jugadorRepository.save(jugador3);
-        Jugador jugador4 = new Jugador("jose", "1993", 156, 87, 90, "pivot");
-        jugadorRepository.save(jugador4);
-        Jugador jugador5 = new Jugador("ivan", "1994", 122, 11, 89, "alero");
-        jugadorRepository.save(jugador5);
 
         System.out.println(jugadorRepository.findBynombre("Pepe"));
 
@@ -110,8 +101,9 @@ public class JugadorService {
         System.out.println("Jugadores que juegan en un equipo, y son alero");
         System.out.println(equipoRepository.findByNombrEquipoAndPosicion("Hospi", "alero"));
         // Devuelve el jugador que más canastas ha realizado de un equipo determinado como parámetro.
-        System.out.println("Jugador que mas canastas ha realizado de del hospi");
-        showStatistics3(equipoRepository.findByJugadorQueMasCanastasAnota("Hospi"));
+        System.out.println("Jugador que mas canastas ha realizado de hospi");
+        showStatisticsBestPlayer(equipoRepository.JugadorMaxCanastasEquipo("Hospi", new PageRequest(0,1)));
+
         System.out.println("********************************");
     }
 
@@ -139,11 +131,14 @@ public class JugadorService {
         for (Object[] statistic : statisticsList) {
             System.out.println("nombre " + statistic[0]);
             System.out.println("Max canastas = " + statistic[1] + " puntos" + System.lineSeparator());
-
-
         }
 
+    }
+    private void showStatisticsBestPlayer(Page<Jugador> jugadorPage) {
+        jugadorPage.getContent().forEach(jugador->{
+            System.out.println(jugador);
 
+        });
     }
 
 }
